@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <title>Document</title>
+</head>
+<body>
+
+        <div class="main">
+            <div class="music_container">
+                <h2 id="title">Agar tum sath ho</h2>
+                <h3 id="artist">arijit singh</h3>
+                <div class="img_container">
+                    <img src="img/jeel1.jpg" alt="">
+                </div>
+                <audio src="muc/jeel1.mp3" ></audio>
+                
+                <!-- controls -->
+                <div class="controls">
+                    <i class="fa fa-backward back" aria-hidden="true" id="prv" title="backward"></i>
+                    <i class="fa fa-play mainbtn" aria-hidden="true" id="play" title="play"></i>
+                    <i class="fa fa-forward for" aria-hidden="true" id="next" title="forward"></i>
+
+                </div>
+        
+            </div>
+        </div>
+        <script>
+
+            const music = document.querySelector("audio");
+            const img = document.querySelector("img");
+            const play = document.getElementById("play");
+            const artist = document.getElementById("artist");
+            const title = document.getElementById("title");
+            const prv = document.getElementById("prv");
+            const next = document.getElementById("next");
+
+
+
+            const songs = [
+            {
+                name : "jeel1",
+                title : "Agar tum sath ho",
+                artist : "arijit singh",
+
+            },
+            {
+                name : "jeel2",
+                title : "yes or no",
+                artist : "Jass Manak",
+
+            },
+            {
+                name : "jeel3",
+                title : "qafirana",
+                artist : "arijit singh",
+            },
+            {
+                name : "jeel4",
+                title : "lahenga",
+                artist : "jass manak",
+            },
+            {
+                name : "jeel5",
+                title : "nehu da viah",
+                artist : "neha kakkar",
+            },{
+                name : "jeel6",
+                title : "vhalam avone",
+                artist : "jigardan gadhavi",
+            },{
+                name : "jeel7",
+                title : "tero ke sahar me",
+                artist : "neha kakkar",
+            },
+        ];
+
+
+
+            let isplaying = false;
+            // for play funcyion
+            const playmusic = () => {
+                isplaying = true;
+                music.play();
+                play.classList.replace("fa-play","fa-pause");
+                img.classList.add("anime");
+            };
+
+            // for pause function
+            const pausemusic = () => {
+                isplaying = false;
+                music.pause();
+                play.classList.replace("fa-pause","fa-play");
+                img.classList.remove("anime");
+            };
+
+            play.addEventListener('click', () => {
+                isplaying ? pausemusic() :  playmusic();
+            });
+
+
+            // changing data
+
+            const loadSongs = (songs) => {
+                title.textContent = songs.title;
+                artist.textContent = songs.artist;
+                music.src="muc/"+ songs.name + ".mp3";
+                img.src ="img/"+ songs.name + ".jpg";
+
+            };
+
+            songIndex = 0;
+            const nextSong = () => {
+                songIndex = (songIndex +1) % songs.length;
+                loadSongs(songs[songIndex]);
+                playmusic();
+            };
+
+            const prvsong = () => {
+                songIndex = (songIndex - 1 + songs.length) % songs.length;
+                loadSongs(songs[songIndex]);
+                playmusic();
+            };
+
+            next.addEventListener("click", nextSong);
+            prv.addEventListener("click", prvsong);
+        
+        </script>
+
+</body>
+</html>
